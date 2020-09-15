@@ -167,12 +167,14 @@ function createTeam() {
 
                 const intern = new Intern(userChoice.internName, userChoice.internID, userChoice.internEmail, userChoice.internSchool)
 
+
                 teamMembers.push(intern)
 
                 createTeam();
             })
     }
 }
+
 
 module.exports = teamMembers
 
