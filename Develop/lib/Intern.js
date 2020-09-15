@@ -17,8 +17,11 @@ class Intern extends Employee{
     }
 }
 // export intern
+
+
 createCard()
     return
+
     <div class="card shadow" style="width: 250px">
        <div class="card-header bg-primary text-light h2">
           ${this.name}<br />
@@ -38,8 +41,9 @@ createCard()
        </div>
     </div>
     ;
+
  
 
 
-module.exports = Intern;
+
 module.exports = Intern;
