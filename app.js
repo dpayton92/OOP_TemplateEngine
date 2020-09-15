@@ -162,7 +162,11 @@ function generatePage() {
    });
 
    let fullHTML = 
+<<<<<<< HEAD
    
+=======
+  
+>>>>>>> 0bec5166993d824307aee5437ead1dad510e7280
 <html lang="en">
    <head>
       <meta charset="UTF-8" />
@@ -190,11 +194,19 @@ function generatePage() {
          </div>
       </div>
       <div class="container mt-5">
+<<<<<<< HEAD
        
          <div class="card-deck d-inline-flex justify-content-center">
             ${allCards}
          </div>
          
+=======
+         
+         <div class="card-deck d-inline-flex justify-content-center">
+            ${allCards}
+         </div>
+       
+>>>>>>> 0bec5166993d824307aee5437ead1dad510e7280
       </div>
    </body>
 </html>
