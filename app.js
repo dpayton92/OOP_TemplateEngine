@@ -1,210 +1,176 @@
-const fs = require("fs");
 const inquirer = require("inquirer");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
+const fs = require("fs");
+
+
 const Manager = require("./lib/Manager");
-const port = process.env.PORT || 4000;
+const Intern = require("./lib/Intern");
+const Engineer = require("./lib/Engineer");
 
-let employeeID = 1;
-let employeeList = [];
 
-function managerPrompts() {
-   inquirer
-      .prompt([
-         {
-            type: "input",
-            message: "Manager name: ",
-            name: "managerName"
-         },
-         {
-            type: "input",
-            message: "What is your email address?",
-            name: "managerEmail"
-         },
-         {
-            type: "input",
-            message: "What is your office number?",
-            name: "managerOffice"
-         }
-      ])
-      .then(function(response) {
-         let managerName = response.managerName;
-         let managerEmail = response.managerEmail;
-         let managerOffice = response.managerOffice;
-         let manager = new Manager(
-            managerName,
-            employeeID,
-            managerEmail,
-            managerOffice
-         );
 
-         employeeList.push(manager);
+async function start(){
+        console.log("Let's make your Dream Team!");
 
-         employeeID++;
 
-         console.log(`
-         ~~~~~~~~~~~~~~
-         Now we'll collect information from you about your employees
-         ~~~~~~~~~~~~~~
-         `);
 
-         employeePrompts();
-      });
-}
+        let teamHTML = "";
 
-function employeePrompts() {
-   inquirer
-      .prompt([
-         {
-            type: "list",
-            message: "What is the employee's role?",
-            choices: ["Engineer", "Intern"],
-            name: "employeeType"
-         },
-         {
-            type: "input",
-            message: "What is the employee's name?",
-            name: "employeeName"
-         },
-         {
-            type: "input",
-            message: "What is the employee's email address?",
-            name: "employeeEmail"
-         }
-      ])
-      .then(function(response) {
-         let employeeType = response.employeeType;
-         let employeeName = response.employeeName;
-         let employeeEmail = response.employeeEmail;
 
-         if (employeeType === "Engineer") {
-            inquirer
-               .prompt([
-                  {
-                     type: "input",
-                     message: "What is your employee's GitHub username?",
-                     name: "gitHubUN"
-                  },
-                  {
-                     type: "list",
-                     message: "Do you have more employees you'd like to add?",
-                     choices: ["Yes", "No"],
-                     name: "moreEmployees"
-                  }
-               ])
-               .then(function(response) {
-                  let employeeGitHub = response.gitHubUN;
 
-                  let engineer = new Engineer(
-                     employeeName,
-                     employeeID,
-                     employeeEmail,
-                     employeeGitHub
-                  );
+        let teamSize;
 
-                  employeeList.push(engineer);
-                  employeeID++;
 
-                  if (response.moreEmployees === "Yes") {
-                     employeePrompts();
-                  } else {
-                     generatePage();
-                     return;
-                  }
-               });
-         } else {
-            inquirer
-               .prompt([
-                  {
-                     type: "input",
-                     message: "Where does the intern go to school?",
-                     name: "internSchool"
-                  },
-                  {
-                     type: "list",
-                     message: "Do you have more employees you'd like to add?",
-                     choices: ["Yes", "No"],
-                     name: "moreEmployees"
-                  }
-               ])
-               .then(function(response) {
-                  let employeeSchool = response.internSchool;
 
-                  let intern = new Intern(
-                     employeeName,
-                     employeeID,
-                     employeeEmail,
-                     employeeSchool
-                  );
+        await inquirer.prompt({
+                type: "number",
+                message: "How many people are in your team?",
+                name: "noOfTeamMem"
+            })
+            .then((data) => {
 
-                  employeeList.push(intern);
 
-                  employeeID++;
 
-                  if (response.moreEmployees === "Yes") {
-                     employeePrompts();
-                  } else {
-                     generatePage();
-                     return;
-                  }
-               });
-         }
-      });
-   // console.log(employeeList);
-}
 
-function generatePage() {
-   let allCards = "";
+                teamSize = data.noOfTeamMem + 1;
+            });
 
-   employeeList.forEach(item => {
-      let cardString = item.createCard();
-      allCards += cardString;
-   });
 
-   let fullHTML = 
-   
-<html lang="en">
-   <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-      <link
-         rel="stylesheet"
-         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-         crossorigin="anonymous"
-      />
-      <script
-         src="https://kit.fontawesome.com/ab3fd93a87.js"
-         crossorigin="anonymous"
-      ></script>
-      <title>My Team Roster</title>
-   </head>
-   <body>
-      <div
-         class="container-fluid bg-danger text-center d-flex align-items-center justify-content-center"
-         style="height: 20vh"
-      >
-         <div class="h1 text-white" style="display: inline-block;">
-            My Team
-         </div>
-      </div>
-      <div class="container mt-5">
-       
-         <div class="card-deck d-inline-flex justify-content-center">
-            ${allCards}
-         </div>
-         
-      </div>
-   </body>
-</html>
-   ;
+        if (teamSize === 0) {
+            console.log("I guess there is no one on your team...");
+            return;
+        }
 
-   fs.writeFile("./output/roster.html", fullHTML, function(err) {
-      if (err) {
-         return console.log(err);
-      }
-   });
-}
-app.listen(port);
-managerPrompts();
+
+        for (i = 1; i < teamSize; i++) {
+
+
+
+            let name;
+            let id;
+            let title;
+            let email;
+
+
+
+            await inquirer.prompt([{
+                        type: "input",
+                        message: `What is employee (${i})'s name?`,
+                        name: "name"
+                    },
+                    {
+                        type: "input",
+                        message: `What is the employee (${i})'s id?`,
+                        name: "id"
+                    },
+                    {
+                        type: "input",
+                        message: `What is the employee (${i})'s Email?`,
+                        name: "email"
+                    },
+                    {
+                        type: "list",
+                        message: `what the employee (${i})'s title?`,
+                        name: "title",
+                        choices: ["Engineer", "Intern", "Manager"]
+                    }
+                ])
+                .then((data) => {
+
+
+
+                    name = data.name;
+                    id = data.id;
+                    title = data.title;
+                    email = data.email;
+                });
+
+
+
+            switch (title) {
+                case "Manager":
+
+
+
+                    await inquirer.prompt([{
+                            type: "input",
+                            message: "What is your Manager's Office Number?",
+                            name: "officeNo"
+                        }])
+                        .then((data) => {
+
+
+
+                            const manager = new Manager(name, id, email, data.officeNo);
+
+
+
+                            teamMember = fs.readFileSync("templates/manager.html");
+
+
+
+                            teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
+                        });
+                    break;
+
+
+
+                case "Intern":
+                    await inquirer.prompt([{
+                            type: "input",
+                            message: "What school is your Intern attending?",
+                            name: "school"
+                        }])
+                        .then((data) => {
+                            const intern = new Intern(name, id, email, data.school);
+                            teamMember = fs.readFileSync("templates/intern.html");
+                            teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
+                        });
+                    break;
+
+
+
+                case "Engineer":
+                    await inquirer.prompt([{
+                            type: "input",
+                            message: "What is your Engineer's GitHub?",
+                            name: "github"
+                        }])
+                        .then((data) => {
+                            const engineer = new Engineer(name, id, email, data.github);
+                            teamMember = fs.readFileSync("templates/engineer.html");
+                            teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
+                        });
+                    break;
+
+
+
+
+
+
+
+                    const mainHTML = fs.readFileSync("templates/main.html");
+
+
+                    teamHTML = eval('`' + mainHTML + '`');
+
+
+
+                    fs.writeFile("output/team.html", teamHTML, function (err) {
+
+
+                        if (err) {
+                            return console.log(err);
+                        }
+
+                        console.log("Success!");
+
+                    });
+
+
+
+            }
+
+
+
+
+        
