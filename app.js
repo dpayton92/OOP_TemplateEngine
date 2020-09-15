@@ -160,8 +160,8 @@ function generatePage() {
       allCards += cardString;
    });
 
-   let fullHTML = `
-   <!DOCTYPE html>
+   let fullHTML = 
+  
 <html lang="en">
    <head>
       <meta charset="UTF-8" />
@@ -189,15 +189,15 @@ function generatePage() {
          </div>
       </div>
       <div class="container mt-5">
-         <!-- start of card group -->
+         
          <div class="card-deck d-inline-flex justify-content-center">
             ${allCards}
          </div>
-         <!-- end of card group -->
+       
       </div>
    </body>
 </html>
-   `;
+   ;
 
    fs.writeFile("./output/roster.html", fullHTML, function(err) {
       if (err) {

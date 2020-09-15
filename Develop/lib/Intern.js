@@ -1,6 +1,6 @@
 // TODO: Write code to define and export the Intern class.  HINT: This class should inherit from Employee.
 // require Employee class
-const employee = require("./Employee");
+const Employee = require("./Employee");
 
 // create a class called intern that extends Employee
 class Intern extends Employee{
@@ -17,8 +17,11 @@ class Intern extends Employee{
     }
 }
 // export intern
-createCard() 
-    return 
+
+
+createCard()
+    return
+
     <div class="card shadow" style="width: 250px">
        <div class="card-header bg-primary text-light h2">
           ${this.name}<br />
@@ -39,6 +42,8 @@ createCard()
     </div>
     ;
 
+ 
 
-module.exports = Intern;
+
+
 module.exports = Intern;

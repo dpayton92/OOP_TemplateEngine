@@ -1,4 +1,4 @@
-const managerCard = `
+const managerCard = 
 <div class="card shadow" style="width: 250px">
 <div class="card-header bg-primary text-light h2">
    ${this.name}<br />
@@ -17,8 +17,6 @@ const managerCard = `
    </ul>
 </div>
 </div>
-`;
+;
 
-module.exports = {
-   managerCard: managerCard
-};
+module.exports =   managerCard
