@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const apps = require("./app");
-var teamMembers = apps.teamMembers;
+const teamMembers = apps.teamMembers;
 
 
 
@@ -78,7 +78,7 @@ const renderMain = html => {
     fs.writeFileSync(file, masterHTML);
   };
 
-//   RegExp constructor creates a regular expression object for matching text with a pattern.
+
   const replacePlaceholders = (template, placeholder, value) => {
     const pattern = new RegExp("{{ " + placeholder + " }}", "gm");
     return template.replace(pattern, value);

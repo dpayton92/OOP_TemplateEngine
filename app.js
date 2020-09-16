@@ -41,7 +41,7 @@ function createTeam() {
                     break;
 
                 case "No more employees":
-                    render(teamMembers);
+                    return (teamMembers);
                     break
 
             }
@@ -176,6 +176,7 @@ function createTeam() {
 }
 
 
-module.exports = teamMembers
+module.exports = render
+
 
 createTeam();
